@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    static int port = 5000;
-    static String host = "localhost";
+    static int port = 8000;
+    static String host = "172.20.10.3";
     static DataInputStream in;
     static DataOutputStream out;
     static Socket socket;
@@ -17,13 +17,14 @@ public class Client {
 
         System.out.println("Client started");
         Scanner input = new Scanner(System.in);
-        System.out.println("enter number");
-        double num;
-        num = input.nextDouble();
+        System.out.println("enter text");
+        String num;
+        num = input.nextLine();
        socket = new Socket(host,port);
        in = new DataInputStream(socket.getInputStream());
        out = new DataOutputStream(socket.getOutputStream());
-       out.writeDouble(num);
-        System.out.println(in.readDouble());
+       out.writeUTF(num);
+       out.flush();
+       System.out.println(in.readUTF());
     }
 }
